@@ -15,8 +15,11 @@ au BufRead,BUfNew *.tex setf tex
 
 " let Vundle manage Vundle, required
 Plugin 'gmarik/Vundle.vim'
-" Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline'
 Plugin 'Valloric/YouCompleteMe'
+Plugin 'junegunn/fzf'
+Plugin 'junegunn/fzf.vim'
+
 " Bundle "MarcWeber/vim-addon-mw-utils"
 " Bundle "tomtom/tlib_vim"
 " Bundle "garbas/vim-snipmate"
@@ -24,6 +27,7 @@ Plugin 'Valloric/YouCompleteMe'
 " Go Syntax Highlighting "
 Plugin 'fatih/vim-go'
 
+set rtp+=~/.linuxbrew/opt/fzf
 " set runtimepath^=~/.vim/bundle/ctrlp.vim
 
 " spaces for python
@@ -46,7 +50,7 @@ nmap <silent> <A-Left> :wincmd h<CR>
 nmap <silent> <A-Right> :wincmd l<CR>
 
 "For using Taglist for easy function finding"
-let Tlist_Ctags_Cmd = "/usr/bin/ctags"
+let Tlist_Ctags_Cmd = "~/.linuxbrew/bin/ctags"
 let Tlist_WinWidth = 35
 nnoremap tt :TlistToggle<CR><C-w>w
 
@@ -79,6 +83,7 @@ set colorcolumn=80
 set cursorline
 hi CursorLine ctermbg=8 ctermfg=15 "8 = dark gray, 15 = white
 set cursorcolumn
+hi CursorLine ctermbg=8 ctermfg=15 "8 = dark gray, 15 = white
 inoremap jj <Esc>
 set tabstop=4
 set shiftwidth=4
@@ -89,9 +94,9 @@ set foldmethod=syntax
 set foldnestmax=10
 set foldlevel=2
 
+
 "Clang path"
 let g:clang_library_path='~/.vim/plugin/clang/'
-
 
 " Add highlighting on functions and classes for C++
 function! EnhanceCppSyntax()
@@ -115,9 +120,8 @@ au Syntax c,cpp call CustomTagHighlight()
 " Clang compilation options file for Syntastic (if needed)
 let g:syntastic_c_config_file = '.clang_complete'
 let g:syntastic_cpp_config_file = '.clang_complete'
-let g:SuperTabContextDefaultCompletionType='<c-p>'
+" let g:SuperTabContextDefaultCompletionType='<c-p>'
 
-let g:airline_powerline_fonts = 1
 " Complete only the current buffer and includes
 "set complete=.,i
 
@@ -129,6 +133,8 @@ let g:airline_powerline_fonts = 1
 "set ofu=syntaxcomplete#Complete"
 "let g:SuperTabContextDefaultCompletionType='<c-p>'"
 "let g:SuperTabNoCompleteAfter = ['^', ',', '\s', '\', '\n']"
+
+let g:airline_powerline_fonts = 1
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required

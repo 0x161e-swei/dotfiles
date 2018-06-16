@@ -1,14 +1,19 @@
 #! /bin/bash
 
 # for linuxbrew
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)"
+if [ ! -d "${HOME}/.linuxbrew" ]; then
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)"
+fi
 
 # for fonts
-cp -r .fonts ${HOME}/
+cp -r fonts ${HOME}/.fonts
 fc-cache -vf
 
+# brew fzf and install into vim
+brew install fzf
+
 # for vim
-cp -r .vimrc  ${HOME}/
+cp -r vimrc  ${HOME}/.vimrc
 git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 mkdir -p ${HOME}/.vim/colors
 cd ${HOME}/.vim/colors
@@ -29,6 +34,10 @@ python3 install.py --clang-completer
 #     . ${HOME}/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp
 # cmake --build . --target ycm_core
 
+# Manually install the newest version of taglist
+cd ${HOME}/.vim
+wget https://cfhcable.dl.sourceforge.net/project/vim-taglist/vim-taglist/4.6/taglist_46.zip
+unzip taglist_46.zip; rm taglist_46.zip
 
 # git diff
 brew install diff-so-fancy
