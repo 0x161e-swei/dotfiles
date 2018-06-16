@@ -15,11 +15,15 @@ au BufRead,BUfNew *.tex setf tex
 
 " let Vundle manage Vundle, required
 Plugin 'gmarik/Vundle.vim'
+
+" theme
 Plugin 'vim-airline/vim-airline'
-Plugin 'Valloric/YouCompleteMe'
+
+" fiel search plugin
 Plugin 'junegunn/fzf'
 Plugin 'junegunn/fzf.vim'
 
+" Completion plugins
 Plugin 'ervandew/supertab'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'SirVer/ultisnips'
