@@ -20,15 +20,14 @@ Plugin 'Valloric/YouCompleteMe'
 Plugin 'junegunn/fzf'
 Plugin 'junegunn/fzf.vim'
 
-" Bundle "MarcWeber/vim-addon-mw-utils"
-" Bundle "tomtom/tlib_vim"
-" Bundle "garbas/vim-snipmate"
+Plugin 'ervandew/supertab'
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'SirVer/ultisnips'
 
 " Go Syntax Highlighting "
 Plugin 'fatih/vim-go'
 
 set rtp+=~/.linuxbrew/opt/fzf
-" set runtimepath^=~/.vim/bundle/ctrlp.vim
 
 " spaces for python
 au Filetype python setl et ts=4 sw=4
@@ -60,6 +59,10 @@ nnoremap fd :tabp<CR>
 
 " Quick swapping between windows "
 nnoremap ww <C-w>w
+
+" Quick file search
+nnoremap ff :Files<CR>
+nnoremap fff :Files 
 
 " Turn on/off spell check "
 setlocal spell spelllang=en_us
@@ -96,7 +99,7 @@ set foldlevel=2
 
 
 "Clang path"
-let g:clang_library_path='~/.vim/plugin/clang/'
+" let g:clang_library_path='~/.vim/plugin/clang/'
 
 " Add highlighting on functions and classes for C++
 function! EnhanceCppSyntax()
@@ -118,15 +121,22 @@ endfunction
 au Syntax c,cpp call CustomTagHighlight()
 
 " Clang compilation options file for Syntastic (if needed)
-let g:syntastic_c_config_file = '.clang_complete'
-let g:syntastic_cpp_config_file = '.clang_complete'
+" let g:syntastic_c_config_file = '.clang_complete'
+" let g:syntastic_cpp_config_file = '.clang_complete'
+
+let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
+
+" SuperTab option for context aware completion
+"set ofu=syntaxcomplete#Complete"
 " let g:SuperTabContextDefaultCompletionType='<c-p>'
+let g:SuperTabDefaultCompletionType='<C-n>'
+let g:SuperTabNoCompleteAfter = ['^', ',', '\s', '\', '\n']
 
-" Complete only the current buffer and includes
-"set complete=.,i
-
-" Complete options (disable preview scratch window)
-"set completeopt=menu,menuone ",longest
+" UltiSnipsExpandTrigger key bindings
+let g:UltiSnipsExpandTrigger = "<tab>"
+let g:UltiSnipsJumpForwardTrigger = "<tab>"
+let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 
 " SuperTab option for context aware completion
 "let g:SuperTabDefaultCompletionType="context" 
