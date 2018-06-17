@@ -70,8 +70,8 @@ nnoremap fff :Files
 
 " Turn on/off spell check "
 setlocal spell spelllang=en_us
-nnoremap ss :set spell
-nnoremap sss :set nospell
+nnoremap ss :set spell<CR>
+nnoremap sss :set nospell<CR>
 set nospell
 
 " Keep the cursor near the center "
