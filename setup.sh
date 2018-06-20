@@ -8,7 +8,7 @@ fi
 export PATH="${PATH}:${HOME}/.linuxbrew/bin"
 
 # tmux
-cp tmux.conf ${HOME}/.tmux.conf
+# cp tmux.conf ${HOME}/.tmux.conf
 
 # for fonts
 cp -r fonts ${HOME}/.fonts
@@ -16,21 +16,20 @@ fc-cache -vf
 
 # brew fzf and install into vim
 brew install fzf
+brew install --HEAD universal-ctags/universal-ctags/universal-ctags
 
 # for vim
 cp vimrc  ${HOME}/.vimrc
-git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 # Manually install the newest version of taglist
-cd ${HOME}/.vim
-wget https://cfhcable.dl.sourceforge.net/project/vim-taglist/vim-taglist/4.6/taglist_46.zip
-unzip taglist_46.zip; rm taglist_46.zip
 
 
 mkdir -p ${HOME}/.vim/colors
 cd ${HOME}/.vim/colors
 wget https://raw.githubusercontent.com/tomasr/molokai/master/colors/molokai.vim 
-vim +PluginInstall +qall
+vim +PlugInstall +qall
 
 # Compile and install YouCompleteMe
 cd ${HOME}/.vim/bundle/YouCompleteMe
