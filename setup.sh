@@ -16,6 +16,8 @@ fc-cache -vf
 
 # brew fzf and install into vim
 brew install fzf
+brew install vim
+brew uninstall ctags
 brew install --HEAD universal-ctags/universal-ctags/universal-ctags
 
 # for vim
@@ -32,8 +34,8 @@ wget https://raw.githubusercontent.com/tomasr/molokai/master/colors/molokai.vim
 vim +PlugInstall +qall
 
 # Compile and install YouCompleteMe
-cd ${HOME}/.vim/bundle/YouCompleteMe
-python3 install.py --clang-completer
+# cd ${HOME}/.vim/plugged/YouCompleteMe
+# python3 install.py --clang-completer
 
 # git diff
 brew install diff-so-fancy

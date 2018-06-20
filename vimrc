@@ -28,7 +28,42 @@ nnoremap fff :Files
 " Completion plugins
 Plug 'ervandew/supertab'
 Plug 'SirVer/ultisnips'
-Plug 'Valloric/YouCompleteMe'
+Plug 'Valloric/YouCompleteMe', {'do': 'python3 ./install.py --clang-completer' }
+
+let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
+
+" SuperTab option for context aware completion
+" set ofu=syntaxcomplete#Complete"
+" let g:SuperTabContextDefaultCompletionType='<c-p>'
+let g:SuperTabDefaultCompletionType='<C-n>'
+let g:SuperTabNoCompleteAfter = ['^', ',', '\s', '\', '\n']
+
+" UltiSnipsExpandTrigger key bindings
+let g:UltiSnipsExpandTrigger = "<tab>"
+let g:UltiSnipsJumpForwardTrigger = "<tab>"
+let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+
+" SuperTab option for context aware completion
+"let g:SuperTabDefaultCompletionType="context" 
+"set ofu=syntaxcomplete#Complete"
+"let g:SuperTabContextDefaultCompletionType='<c-p>'"
+"let g:SuperTabNoCompleteAfter = ['^', ',', '\s', '\', '\n']"
+
+let g:ycm_add_preview_to_completeopt = 0
+let g:ycm_show_diagnostics_ui = 0
+let g:ycm_server_log_level = 'info'
+let g:ycm_min_num_identifier_candidate_chars = 2
+let g:ycm_collect_identifiers_from_comments_and_strings = 1
+let g:ycm_complete_in_strings=1
+let g:ycm_key_invoke_completion = '<c-z>'
+set completeopt=menu,menuone
+let g:ycm_semantic_triggers =  {
+           \ 'c,cpp,python,java,go,sh': ['re!\w{2}'],
+           \ 'lua,javascript': ['re!\w{2}'],
+           \ 'tex': ['re!\w{2}'],
+           \ }
+
 " =============================================================================
 " Go Syntax Highlighting "
 Plug 'fatih/vim-go', { 'tag': '*' }
@@ -132,29 +167,6 @@ function CustomTagHighlight()
 endfunction
 au Syntax c,cpp call CustomTagHighlight()
 
-" Clang compilation options file for Syntastic (if needed)
-" let g:syntastic_c_config_file = '.clang_complete'
-" let g:syntastic_cpp_config_file = '.clang_complete'
-
-let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
-let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
-
-" SuperTab option for context aware completion
-"set ofu=syntaxcomplete#Complete"
-" let g:SuperTabContextDefaultCompletionType='<c-p>'
-let g:SuperTabDefaultCompletionType='<C-n>'
-let g:SuperTabNoCompleteAfter = ['^', ',', '\s', '\', '\n']
-
-" UltiSnipsExpandTrigger key bindings
-let g:UltiSnipsExpandTrigger = "<tab>"
-let g:UltiSnipsJumpForwardTrigger = "<tab>"
-let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
-
-" SuperTab option for context aware completion
-"let g:SuperTabDefaultCompletionType="context" 
-"set ofu=syntaxcomplete#Complete"
-"let g:SuperTabContextDefaultCompletionType='<c-p>'"
-"let g:SuperTabNoCompleteAfter = ['^', ',', '\s', '\', '\n']"
 
 
 " All of your Plugins must be added before the following line
