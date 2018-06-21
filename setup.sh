@@ -5,7 +5,7 @@ if [ ! -d "${HOME}/.linuxbrew" ]; then
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)"
 fi
 
-export PATH="${PATH}:${HOME}/.linuxbrew/bin"
+export PATH="${HOME}/.linuxbrew/bin:${PATH}"
 
 # tmux
 # cp tmux.conf ${HOME}/.tmux.conf
@@ -58,3 +58,6 @@ git config --global color.diff.whitespace               "red reverse"
 # git name
 git config --global user.name                           "Shijia Wei"
 git config --global user.email                          "swei@`uname -n`"
+
+# git editor
+git config --global core.editor                         "vim"

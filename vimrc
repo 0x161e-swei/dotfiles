@@ -17,13 +17,10 @@ let g:airline_powerline_fonts = 1
 " =============================================================================
 " LeaderF
 Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
-" =============================================================================
-" fiel search plugin
-Plug 'junegunn/fzf'
-Plug 'junegunn/fzf.vim'
-set rtp+=~/.linuxbrew/opt/fzf
-nnoremap ff :Files<CR>
-nnoremap fff :Files 
+let g:Lf_RootMarkers = ['.root', '.svn', '.git', '.hg', '.project']
+let g:Lf_WindowHeight = 0.20
+let g:Lf_StlColorscheme = 'powerline'
+nnoremap fa  :LeaderfFunctionAll<CR>
 " =============================================================================
 " Completion plugins
 Plug 'ervandew/supertab'
@@ -40,9 +37,9 @@ let g:SuperTabDefaultCompletionType='<C-n>'
 let g:SuperTabNoCompleteAfter = ['^', ',', '\s', '\', '\n']
 
 " UltiSnipsExpandTrigger key bindings
-let g:UltiSnipsExpandTrigger = "<tab>"
-let g:UltiSnipsJumpForwardTrigger = "<tab>"
-let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+let g:UltiSnipsExpandTrigger = '<tab>'
+let g:UltiSnipsJumpForwardTrigger = '<tab>'
+let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
 
 " SuperTab option for context aware completion
 "let g:SuperTabDefaultCompletionType="context" 
@@ -84,15 +81,36 @@ if !isdirectory(s:vim_tags)
     silent! call mkdir(s:vim_tags, 'p')
 endif
 
-"For using Taglist for easy function finding" " let Tlist_Ctags_Cmd = '~/.linuxbrew/bin/ctags'
+"For using Taglist for easy function finding"
+" let Tlist_Ctags_Cmd = '~/.linuxbrew/bin/ctags'
 " let Tlist_WinWidth = 35
 " nnoremap tt :TlistToggle<CR><C-w>w
 " =============================================================================
 " AsyncRun
 Plug 'skywind3000/asyncrun.vim'
-let g:asyncrun_open = 6
+let g:asyncrun_mode = 0
+let g:asyncrun_open = 10
 let g:asyncrun_rootmarks = ['.svn', '.git', '.root', 'build.xml']
 nnoremap make :AsyncRun -cwd=<root> make<CR>
+" Open quickfix window
+nnoremap qf :exe asyncrun#quickfix_toggle(10)<CR>
+" =============================================================================
+" fiel search plugin
+Plug 'junegunn/fzf'
+Plug 'junegunn/fzf.vim'
+let g:fzf_action = {
+  \ 'Enter': 'vsplit',
+  \ 'ctrl-t': 'tab split',
+  \ 'ctrl-x': 'split',
+  \ 'ctrl-v': 'vsplit' }
+set rtp+=~/.linuxbrew/opt/fzf
+function! s:_get_root()
+        let l:root = asyncrun#get_root('%')
+        return l:root
+endfunction
+command! ProjectFiles execute 'Files' s:_get_root()
+nnoremap ff :ProjectFiles<CR>
+nnoremap fff :Files<CR>
 " =============================================================================
 " Spacing
 set expandtab " always uses spaces instead of tab characters
@@ -106,13 +124,6 @@ au Filetype sh setl et ts=4 sw=4 sts=0 smarttab
 "set statusline=%t[%{strlen(&fenc)?&fenc:'none'},%{&ff}]%h%m%r%y%=%c,%l/%L\ %P
 set laststatus=2
 
-
-" Quick swapping between windows "
-nnoremap ww <C-w>w
-
-" Open quickfix window
-nnoremap qf :copen<CR>
-
 " =============================================================================
 " Turn on/off spell check "
 setlocal spell spelllang=en_us
@@ -122,9 +133,14 @@ set nospell
 
 " Keep the cursor near the center "
 set scrolloff=15
-
-" For fast paragraph formatting "
-"nnoremap oo gqip"
+" Quick swapping between windows "
+nnoremap ww <C-w>w
+" Preview definition
+nnoremap gd <C-w>}
+" Close Preview window
+nnoremap cp <C-w>z
+" Go to definition
+nnoremap gt <C-w>v<C-]>
 
 "Colorscheme and line highlighting"
 :colorscheme molokai 
@@ -143,7 +159,6 @@ hi CursorLine ctermbg=8 ctermfg=15 "8 = dark gray, 15 = white
 set foldmethod=syntax
 set foldnestmax=10
 set foldlevel=2
-
 
 "Clang path"
 " let g:clang_library_path='~/.vim/plugin/clang/'
@@ -167,12 +182,10 @@ function CustomTagHighlight()
 endfunction
 au Syntax c,cpp call CustomTagHighlight()
 
-
-
 " All of your Plugins must be added before the following line
 call plug#end()             " required
 
-" filetype plugin indent on    " required
-" syntax on
+filetype plugin indent on    " required
+syntax on
 
 au Filetype tex syntax spell toplevel
