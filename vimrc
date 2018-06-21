@@ -93,7 +93,7 @@ let g:asyncrun_open = 10
 let g:asyncrun_rootmarks = ['.svn', '.git', '.root', 'build.xml']
 nnoremap make :AsyncRun -cwd=<root> make<CR>
 " Open quickfix window
-nnoremap qf :exe asyncrun#quickfix_toggle(10)<CR>
+nnoremap qf :call asyncrun#quickfix_toggle(10)<CR>
 " =============================================================================
 " fiel search plugin
 Plug 'junegunn/fzf'
@@ -127,8 +127,7 @@ set laststatus=2
 " =============================================================================
 " Turn on/off spell check "
 setlocal spell spelllang=en_us
-nnoremap ss :set spell<CR>
-nnoremap sss :set nospell<CR>
+nnoremap ss :setl spell! spell?<CR>
 set nospell
 
 " Keep the cursor near the center "
