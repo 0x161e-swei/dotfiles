@@ -2,6 +2,7 @@
 
 # for linuxbrew
 if [ ! -d "${HOME}/.linuxbrew" ]; then
+    echo "Setting up linux brew, Ctrl-D to install locally"
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)"
 fi
 
@@ -15,8 +16,10 @@ cp -r fonts ${HOME}/.fonts
 fc-cache -vf
 
 # brew fzf and install into vim
+# TODO: add checks for these tools
 brew install fzf
 brew install vim
+brew install cmake
 brew uninstall ctags
 brew install --HEAD universal-ctags/universal-ctags/universal-ctags
 
