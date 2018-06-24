@@ -36,6 +36,10 @@ cd ${HOME}/.vim/colors
 wget https://raw.githubusercontent.com/tomasr/molokai/master/colors/molokai.vim 
 vim +PlugInstall +qall
 
+# Making sure flygrep opens on split
+sed -i "s/exe 'e '/exe 'vsp '/" \
+        ${HOME}/.vim/plugged/FlyGrep.vim/autoload/SpaceVim/plugins/flygrep.vim
+
 # Compile and install YouCompleteMe
 # cd ${HOME}/.vim/plugged/YouCompleteMe
 # python3 install.py --clang-completer

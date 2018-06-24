@@ -15,6 +15,11 @@ au BufRead,BUfNew *.tex setf tex
 Plug 'vim-airline/vim-airline'
 let g:airline_powerline_fonts = 1
 " =============================================================================
+" FlyGrep
+Plug 'wsdjeg/FlyGrep.vim'
+command! -nargs=1 FGrep call FlyGrep#open({'input': <f-args>})
+nnoremap gr :FGrep <C-r><C-w><CR>
+" =============================================================================
 " LeaderF
 Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
 let g:Lf_RootMarkers = ['.root', '.svn', '.git', '.hg', '.project']
@@ -93,7 +98,7 @@ let g:asyncrun_open = 10
 let g:asyncrun_rootmarks = ['.svn', '.git', '.root', 'build.xml']
 nnoremap make :AsyncRun -cwd=<root> make<CR>
 " Open quickfix window
-nnoremap qf :exe asyncrun#quickfix_toggle(10)<CR>
+nnoremap qf :call asyncrun#quickfix_toggle(10)<CR>
 " =============================================================================
 " fiel search plugin
 Plug 'junegunn/fzf'
