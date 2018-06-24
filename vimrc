@@ -15,11 +15,6 @@ au BufRead,BUfNew *.tex setf tex
 Plug 'vim-airline/vim-airline'
 let g:airline_powerline_fonts = 1
 " =============================================================================
-" FlyGrep
-Plug 'wsdjeg/FlyGrep.vim'
-command! -nargs=1 FGrep call FlyGrep#open({'input': <f-args>})
-nnoremap gr :FGrep <C-r><C-w><CR>
-" =============================================================================
 " LeaderF
 Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
 let g:Lf_RootMarkers = ['.root', '.svn', '.git', '.hg', '.project']
@@ -116,6 +111,13 @@ endfunction
 command! ProjectFiles execute 'Files' s:_get_root()
 nnoremap ff :ProjectFiles<CR>
 nnoremap fff :Files<CR>
+" =============================================================================
+" FlyGrep
+Plug 'wsdjeg/FlyGrep.vim'
+command! -nargs=1 FGrep call FlyGrep#open({
+                        \ 'dir': s:_get_root(),
+                        \ 'input': <f-args>})
+nnoremap gr :FGrep <C-r><C-w><CR>
 " =============================================================================
 " Spacing
 set expandtab " always uses spaces instead of tab characters
