@@ -118,6 +118,7 @@ command! -nargs=1 FGrep call FlyGrep#open({
                         \ 'dir': s:_get_root(),
                         \ 'input': <f-args>})
 nnoremap gr :FGrep <C-r><C-w><CR>
+let g:FlyGrep_search_tools = ['rg', 'ag', 'grep', 'pt', 'ack']
 " =============================================================================
 " Spacing
 set expandtab " always uses spaces instead of tab characters
