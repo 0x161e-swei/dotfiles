@@ -15,8 +15,8 @@ export PATH="${HOME}/.linuxbrew/bin:${PATH}"
 cp -r fonts ${HOME}/.fonts
 fc-cache -vf
 
-# brew fzf and install into vim
 # TODO: add checks for these tools
+# brew fzf and install into vim
 brew install fzf
 brew install vim
 brew install cmake
