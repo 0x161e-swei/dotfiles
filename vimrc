@@ -108,7 +108,7 @@ function! s:_get_root()
         let l:root = asyncrun#get_root('%')
         return l:root
 endfunction
-command! ProjectFiles execute 'Files' s:_get_root()
+command! ProjectFiles execute 'GFiles' s:_get_root()
 nnoremap ff :ProjectFiles<CR>
 nnoremap fff :Files<CR>
 " =============================================================================
