@@ -166,7 +166,7 @@ hi CursorLine ctermbg=8 ctermfg=15 "8 = dark gray, 15 = white
 set cursorcolumn
 hi CursorLine ctermbg=8 ctermfg=15 "8 = dark gray, 15 = white
 
-" inoremap jj <Esc>
+inoremap jj <Esc>
 
 "folding code"
 set foldmethod=syntax
