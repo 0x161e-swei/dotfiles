@@ -9,6 +9,7 @@ call plug#begin('~/.vim/plugged')
 " Syntax Highlighting "
 au BufRead,BufNew *.md setf markdown
 au BufRead,BUfNew *.tex setf tex
+au BufRead,BUfNew *.isa setf python
 
 " =============================================================================
 " airline theme
@@ -56,7 +57,7 @@ let g:ycm_complete_in_strings=1
 let g:ycm_key_invoke_completion = '<c-z>'
 set completeopt=menu,menuone
 let g:ycm_semantic_triggers =  {
-           \ 'c,cpp,python,java,go,sh': ['re!\w{2}'],
+           \ 'c,cpp,python,java,go,sh': ['re!\w{4}'],
            \ 'lua,javascript': ['re!\w{2}'],
            \ 'tex': ['re!\w{2}'],
            \ }
@@ -108,6 +109,7 @@ function! s:_get_root()
         let l:root = asyncrun#get_root('%')
         return l:root
 endfunction
+command! Roottest execute s:_get_root()
 command! ProjectFiles execute 'GFiles' s:_get_root()
 nnoremap ff :ProjectFiles<CR>
 nnoremap fff :Files<CR>
@@ -148,6 +150,11 @@ set nospell
 set scrolloff=15
 " Quick swapping between windows "
 nnoremap ww <C-w>w
+nnoremap wj <C-w>j
+nnoremap wk <C-w>k
+nnoremap wh <C-w>h
+nnoremap wl <C-w>l
+
 " Preview definition
 nnoremap gd <C-w>}
 " Close Preview window
@@ -166,7 +173,7 @@ hi CursorLine ctermbg=8 ctermfg=15 "8 = dark gray, 15 = white
 set cursorcolumn
 hi CursorLine ctermbg=8 ctermfg=15 "8 = dark gray, 15 = white
 
-" inoremap jj <Esc>
+inoremap jj <Esc>
 
 "folding code"
 set foldmethod=syntax
