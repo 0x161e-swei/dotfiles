@@ -9,6 +9,7 @@ call plug#begin('~/.vim/plugged')
 " Syntax Highlighting "
 au BufRead,BufNew *.md setf markdown
 au BufRead,BUfNew *.tex setf tex
+au BufRead,BUfNew *.org setf tex
 au BufRead,BUfNew *.isa setf python
 
 " =============================================================================
@@ -43,7 +44,7 @@ let g:UltiSnipsJumpForwardTrigger = '<tab>'
 let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
 
 " SuperTab option for context aware completion
-"let g:SuperTabDefaultCompletionType="context" 
+"let g:SuperTabDefaultCompletionType="context"
 "set ofu=syntaxcomplete#Complete"
 "let g:SuperTabContextDefaultCompletionType='<c-p>'"
 "let g:SuperTabNoCompleteAfter = ['^', ',', '\s', '\', '\n']"
@@ -162,8 +163,20 @@ nnoremap cp <C-w>z
 " Go to definition
 nnoremap gt <C-w>v<C-]>
 
+nnoremap fy gwip
+
+" This defines a macro in register A that duplicates a line with increasing
+" value in the number feild
+let @A="Yp\<C-a>"
+" This command executes the macro...use is as Ndi, where N is the number of
+" lines to generate
+nnoremap di @A
+
+" deletes the trailing whitespace
+nnoremap dt :%s/\s\+$//e<CR>
+
 "Colorscheme and line highlighting"
-:colorscheme molokai 
+:colorscheme molokai
 "highlighting 80 char"
 set colorcolumn=80
 
