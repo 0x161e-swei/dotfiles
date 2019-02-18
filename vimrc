@@ -27,7 +27,7 @@ nnoremap fa  :LeaderfFunctionAll<CR>
 " Completion plugins
 Plug 'ervandew/supertab'
 Plug 'SirVer/ultisnips'
-Plug 'Valloric/YouCompleteMe', {'do': 'python3 ./install.py --clang-completer' }
+Plug 'Valloric/YouCompleteMe', {'do': 'python3 ./install.py --clang-completer', 'for': 'cpp,c' }
 
 let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
 let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
@@ -65,7 +65,7 @@ let g:ycm_semantic_triggers =  {
 
 " =============================================================================
 " Go Syntax Highlighting "
-Plug 'fatih/vim-go', { 'tag': '*' }
+Plug 'fatih/vim-go', { 'tag': '*', 'for': 'go' }
 " =============================================================================
 " gutentags
 Plug 'ludovicchabant/vim-gutentags'
