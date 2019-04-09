@@ -24,6 +24,13 @@ let g:Lf_WindowHeight = 0.20
 let g:Lf_StlColorscheme = 'powerline'
 nnoremap fa  :LeaderfFunctionAll<CR>
 " =============================================================================
+
+" Markdown Syntax Highlighting
+Plug 'vim-pandoc/vim-pandoc'
+Plug 'vim-pandoc/vim-pandoc-syntax'
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
+nnoremap <C-m> :MarkdownPreview<CR>
+
 " Completion plugins
 Plug 'ervandew/supertab'
 Plug 'SirVer/ultisnips'
@@ -66,6 +73,7 @@ let g:ycm_semantic_triggers =  {
 " =============================================================================
 " Go Syntax Highlighting "
 Plug 'fatih/vim-go', { 'tag': '*', 'for': 'go' }
+
 " =============================================================================
 " gutentags
 Plug 'ludovicchabant/vim-gutentags'
@@ -134,6 +142,7 @@ set expandtab " always uses spaces instead of tab characters
 au Filetype python setl et ts=4 sw=4
 au Filetype cpp setl et ts=4 sw=4 sts=0 smarttab
 au Filetype c setl et ts=4 sw=4 sts=0 smarttab
+au Filetype markdown setl et ts=4 sw=4 sts=0 smarttab
 au Filetype sh setl et ts=4 sw=4 sts=0 smarttab
 "" au FileType coffee setl ts=4 sw=4
 " =============================================================================
