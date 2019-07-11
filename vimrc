@@ -227,6 +227,10 @@ au Syntax c,cpp call CustomTagHighlight()
 " All of your Plugins must be added before the following line
 call plug#end()             " required
 
+if has("autocmd")
+        au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+endif
+
 filetype plugin indent on    " required
 syntax on
 
