@@ -15,7 +15,12 @@ au BufRead,BUfNew *.isa setf python
 " =============================================================================
 " airline theme
 Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 let g:airline_powerline_fonts = 1
+let g:airline_theme='dracula'
+" =============================================================================
+" Dracula color
+Plug 'dracula/vim', { 'as': 'dracula' }
 " =============================================================================
 " LeaderF
 Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
@@ -185,15 +190,17 @@ nnoremap di @A
 nnoremap dt :%s/\s\+$//e<CR>
 
 "Colorscheme and line highlighting"
-:colorscheme molokai
+" :color dracula 
 "highlighting 80 char"
 set colorcolumn=80
+hi ColorColumn ctermbg=8
 
 ":set tw=85
 set cursorline
-hi CursorLine ctermbg=8 ctermfg=15 "8 = dark gray, 15 = white
+" 8 = dark gray, 15 = white
+hi CursorLine ctermbg=8
 set cursorcolumn
-hi CursorLine ctermbg=8 ctermfg=15 "8 = dark gray, 15 = white
+hi CursorColumn ctermbg=8
 
 inoremap jj <Esc>
 
