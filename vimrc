@@ -1,6 +1,11 @@
-set nocompatible              " be iMproved, required
 filetype off                  " required
 set nu
+
+if exists('+termguicolors')
+  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+  set termguicolors
+endif
 
 set encoding=utf-8
 
@@ -13,14 +18,14 @@ au BufRead,BUfNew *.org setf tex
 au BufRead,BUfNew *.isa setf python
 
 " =============================================================================
+" Dracula color
+Plug 'dracula/vim', { 'as': 'dracula' }
+" =============================================================================
 " airline theme
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 let g:airline_powerline_fonts = 1
 let g:airline_theme='dracula'
-" =============================================================================
-" Dracula color
-Plug 'dracula/vim', { 'as': 'dracula' }
 " =============================================================================
 " LeaderF
 Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
@@ -30,6 +35,7 @@ let g:Lf_StlColorscheme = 'powerline'
 nnoremap fa  :LeaderfFunctionAll<CR>
 " =============================================================================
 
+Plug 'sheerun/vim-polyglot'
 " Markdown Syntax Highlighting
 Plug 'vim-pandoc/vim-pandoc'
 Plug 'vim-pandoc/vim-pandoc-syntax'
@@ -148,7 +154,12 @@ au Filetype python setl et ts=4 sw=4
 au Filetype cpp setl et ts=4 sw=4 sts=0 smarttab
 au Filetype c setl et ts=4 sw=4 sts=0 smarttab
 au Filetype markdown setl et ts=4 sw=4 sts=0 smarttab
+au Filetype tex setl et ts=4 sw=4 sts=0 smarttab
 au Filetype sh setl et ts=4 sw=4 sts=0 smarttab
+
+set backspace   =indent,eol,start  " Make backspace work as you would expect.
+set hidden                 " Switch between buffers without having to save first.
+
 "" au FileType coffee setl ts=4 sw=4
 " =============================================================================
 " For a better status line "
@@ -189,18 +200,16 @@ nnoremap di @A
 " deletes the trailing whitespace
 nnoremap dt :%s/\s\+$//e<CR>
 
-"Colorscheme and line highlighting"
-" :color dracula 
+"line highlighting"
 "highlighting 80 char"
 set colorcolumn=80
 hi ColorColumn ctermbg=8
 
 ":set tw=85
 set cursorline
-" 8 = dark gray, 15 = white
-hi CursorLine ctermbg=8
+hi CursorLine ctermbg=239
 set cursorcolumn
-hi CursorColumn ctermbg=8
+hi CursorColumn ctermbg=239
 
 inoremap jj <Esc>
 
@@ -208,6 +217,7 @@ inoremap jj <Esc>
 set foldmethod=syntax
 set foldnestmax=10
 set foldlevel=2
+
 
 "Clang path"
 " let g:clang_library_path='~/.vim/plugin/clang/'
@@ -231,8 +241,12 @@ function CustomTagHighlight()
 endfunction
 au Syntax c,cpp call CustomTagHighlight()
 
+
 " All of your Plugins must be added before the following line
 call plug#end()             " required
+
+" Colorscheme
+colorscheme dracula
 
 if has("autocmd")
         au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
