@@ -1,0 +1,43 @@
+
+
+"more characters will be sent to the screen for redrawing
+set ttyfast
+"time waited for key press(es) to complete. It makes for a faster key response
+set ttimeout
+set ttimeoutlen=50
+"make backspace behave properly in insert mode
+set backspace=indent,eol,start
+"display incomplete commands
+set showcmd
+"a better menu in command mode
+set wildmenu
+set wildmode=longest:full,full
+"hide buffers instead of closing them even if they contain unwritten changes
+set hidden
+"disable soft wrap for lines
+set nowrap
+"always display the status line
+set laststatus=2
+"display line numbers on the left side
+set number
+"highlight current line
+set cursorline
+"display text width column
+set colorcolumn=81
+
+"always set autoindenting on
+set autoindent
+set expandtab " always uses spaces instead of tab characters
+au Filetype python setl et ts=4 sw=4
+au Filetype cpp setl et ts=4 sw=4 sts=0 smarttab
+au Filetype c setl et ts=4 sw=4 sts=0 smarttab
+au Filetype markdown setl et ts=4 sw=4 sts=0 smarttab
+au Filetype sh setl et ts=4 sw=4 sts=0 smarttab
+
+"incremental search
+set incsearch
+"highlight search
+set hlsearch
+"searches are case insensitive unless they contain at least one capital letter
+set ignorecase
+set smartcase
