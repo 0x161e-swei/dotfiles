@@ -190,10 +190,10 @@ set laststatus=2
 set hlsearch
 set hidden                 " Switch between buffers without having to save first.
 " Turn on/off spell check "
-set nospell
 setlocal spell spelllang=en_us
 nnoremap ss :setl spell! spell?<CR>
 set backspace   =indent,eol,start
+set nospell
 
 " This defines a macro in register A that duplicates a line with increasing
 " value in the number feild
@@ -219,6 +219,7 @@ au Filetype cpp setl et ts=4 sw=4 sts=0 smarttab
 au Filetype c setl et ts=4 sw=4 sts=0 smarttab
 au Filetype markdown setl et ts=4 sw=4 sts=0 smarttab
 au Filetype tex setl et ts=4 sw=4 sts=0 smarttab
+au Filetype tex setl spell
 au Filetype sh setl et ts=4 sw=4 sts=0 smarttab
 
 
@@ -261,4 +262,3 @@ endif
 filetype plugin indent on    " required
 syntax on
 
-au Filetype tex syntax spell toplevel
