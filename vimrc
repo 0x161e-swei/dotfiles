@@ -107,6 +107,7 @@ endif
 " let Tlist_Ctags_Cmd = '~/.linuxbrew/bin/ctags'
 " let Tlist_WinWidth = 35
 " nnoremap tt :TlistToggle<CR><C-w>w
+
 " =============================================================================
 " AsyncRun
 Plug 'skywind3000/asyncrun.vim'
@@ -116,8 +117,9 @@ let g:asyncrun_rootmarks = ['.svn', '.git', '.root', 'build.xml']
 nnoremap make :AsyncRun -cwd=<root> make<CR>
 " Open quickfix window
 nnoremap qf :call asyncrun#quickfix_toggle(10)<CR>
+
 " =============================================================================
-" fiel search plugin
+" file search plugin
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 let g:fzf_action = {
@@ -134,6 +136,7 @@ command! Roottest execute s:_get_root()
 command! ProjectFiles execute 'GFiles' s:_get_root()
 nnoremap ff :ProjectFiles<CR>
 nnoremap fff :Files<CR>
+
 " =============================================================================
 " FlyGrep
 " Plug 'wsdjeg/FlyGrep.vim'
@@ -148,80 +151,6 @@ nnoremap gr :FGrep <C-r><C-w><CR>
 " Grep for current selection
 vnoremap gr vgvy :FGrep <c-r>"<CR>
 " let g:FlyGrep_search_tools = ['ag', 'rg', 'grep', 'pt', 'ack']
-" =============================================================================
-" Spacing
-set expandtab " always uses spaces instead of tab characters
-au Filetype python setl et ts=4 sw=4
-au Filetype cpp setl et ts=4 sw=4 sts=0 smarttab
-au Filetype c setl et ts=4 sw=4 sts=0 smarttab
-au Filetype markdown setl et ts=4 sw=4 sts=0 smarttab
-au Filetype tex setl et ts=4 sw=4 sts=0 smarttab
-au Filetype sh setl et ts=4 sw=4 sts=0 smarttab
-
-set backspace   =indent,eol,start  " Make backspace work as you would expect.
-set hidden                 " Switch between buffers without having to save first.
-
-"" au FileType coffee setl ts=4 sw=4
-" =============================================================================
-" For a better status line "
-"set statusline=%t[%{strlen(&fenc)?&fenc:'none'},%{&ff}]%h%m%r%y%=%c,%l/%L\ %P
-set laststatus=2
-
-" =============================================================================
-" Turn on/off spell check "
-setlocal spell spelllang=en_us
-nnoremap ss :setl spell! spell?<CR>
-set nospell
-
-" Keep the cursor near the center "
-set scrolloff=15
-" Quick swapping between windows "
-nnoremap ww <C-w>w
-nnoremap wj <C-w>j
-nnoremap wk <C-w>k
-nnoremap wh <C-w>h
-nnoremap wl <C-w>l
-
-" Preview definition
-nnoremap gd <C-w>}
-" Close Preview window
-nnoremap cp <C-w>z
-" Go to definition
-nnoremap gt <C-w>v<C-]>
-
-nnoremap fy gwip
-
-" This defines a macro in register A that duplicates a line with increasing
-" value in the number feild
-let @A="Yp\<C-a>"
-" This command executes the macro...use is as Ndi, where N is the number of
-" lines to generate
-nnoremap di @A
-
-" deletes the trailing whitespace
-nnoremap dt :%s/\s\+$//e<CR>
-
-"line highlighting"
-"highlighting 80 char"
-set colorcolumn=80
-hi ColorColumn ctermbg=8
-
-":set tw=85
-set cursorline
-hi CursorLine ctermbg=239
-set cursorcolumn
-hi CursorColumn ctermbg=239
-
-inoremap jj <Esc>
-
-"folding code"
-set foldmethod=syntax
-set foldnestmax=10
-set foldlevel=2
-
-
-"Clang path"
-" let g:clang_library_path='~/.vim/plugin/clang/'
 
 " Add highlighting on functions and classes for C++
 function! EnhanceCppSyntax()
@@ -246,8 +175,84 @@ au Syntax c,cpp call CustomTagHighlight()
 " All of your Plugins must be added before the following line
 call plug#end()             " required
 
-" Colorscheme
+" =============================================================================
+" #############################################################################
+" =============================================================================
+
+
 colorscheme dracula
+
+" =============================================================================
+" Edit
+" =============================================================================
+" For a better status line "
+set laststatus=2
+set hlsearch
+set hidden                 " Switch between buffers without having to save first.
+" Turn on/off spell check "
+set nospell
+setlocal spell spelllang=en_us
+nnoremap ss :setl spell! spell?<CR>
+set backspace   =indent,eol,start
+
+" This defines a macro in register A that duplicates a line with increasing
+" value in the number feild
+let @A="Yp\<C-a>"
+" This command executes the macro...use is as Ndi, where N is the number of
+" lines to generate
+nnoremap di @A
+
+" deletes the trailing whitespace
+nnoremap dt :%s/\s\+$//e<CR>
+nnoremap fy gwip
+
+"folding code"
+set foldmethod=syntax
+set foldnestmax=10
+set foldlevel=2
+" =============================================================================
+" Spacing
+" =============================================================================
+set expandtab " always uses spaces instead of tab characters
+au Filetype python setl et ts=4 sw=4
+au Filetype cpp setl et ts=4 sw=4 sts=0 smarttab
+au Filetype c setl et ts=4 sw=4 sts=0 smarttab
+au Filetype markdown setl et ts=4 sw=4 sts=0 smarttab
+au Filetype tex setl et ts=4 sw=4 sts=0 smarttab
+au Filetype sh setl et ts=4 sw=4 sts=0 smarttab
+
+
+" =============================================================================
+" Navigation
+" =============================================================================
+" Keep the cursor near the center "
+set scrolloff=15
+" Quick swapping between windows "
+nnoremap ww <C-w>w
+nnoremap wj <C-w>j
+nnoremap wk <C-w>k
+nnoremap wh <C-w>h
+nnoremap wl <C-w>l
+
+" Preview definition
+nnoremap gd <C-w>}
+" Close Preview window
+nnoremap cp <C-w>z
+" Go to definition
+nnoremap gt <C-w>v<C-]>
+inoremap jj <Esc>
+
+
+
+"line highlighting"
+"highlighting 80 char"
+set colorcolumn=80
+hi ColorColumn ctermbg=8
+set cursorline
+hi CursorLine ctermbg=239
+set cursorcolumn
+hi CursorColumn ctermbg=239
+
 
 if has("autocmd")
         au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
