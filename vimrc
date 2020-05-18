@@ -185,15 +185,13 @@ colorscheme dracula
 " =============================================================================
 " Edit
 " =============================================================================
-" For a better status line "
-set laststatus=2
-set hlsearch
-set hidden                 " Switch between buffers without having to save first.
 " Turn on/off spell check "
 setlocal spell spelllang=en_us
 nnoremap ss :setl spell! spell?<CR>
-set backspace   =indent,eol,start
 set nospell
+
+"make backspace behave properly in insert mode
+set backspace=indent,eol,start
 
 " This defines a macro in register A that duplicates a line with increasing
 " value in the number feild
@@ -206,10 +204,8 @@ nnoremap di @A
 nnoremap dt :%s/\s\+$//e<CR>
 nnoremap fy gwip
 
-"folding code"
-set foldmethod=syntax
-set foldnestmax=10
-set foldlevel=2
+
+
 " =============================================================================
 " Spacing
 " =============================================================================
@@ -243,17 +239,55 @@ nnoremap cp <C-w>z
 nnoremap gt <C-w>v<C-]>
 inoremap jj <Esc>
 
+"incremental search
+set incsearch
+"highlight search
+set hlsearch
+"searches are case insensitive unless they contain at least one capital letter
+" set ignorecase
+set smartcase
 
 
-"line highlighting"
-"highlighting 80 char"
-set colorcolumn=80
+
+" =============================================================================
+" Viewing
+" =============================================================================
+"
+"more characters will be sent to the screen for redrawing
+set ttyfast
+"time waited for key press(es) to complete. It makes for a faster key response
+set ttimeout
+set ttimeoutlen=50
+"display incomplete commands
+set showcmd
+"a better menu in command mode
+set wildmenu
+set wildmode=longest:full,full
+"hide buffers instead of closing them even if they contain unwritten changes
+set hidden
+"disable soft wrap for lines
+set nowrap
+
+"folding code"
+set foldmethod=syntax
+set foldnestmax=10
+set foldlevel=2
+
+"display line numbers on the left side
+set number
+"highlight current line
+set cursorline
+"display text width column
+set colorcolumn=81
+
 hi ColorColumn ctermbg=8
 set cursorline
 hi CursorLine ctermbg=239
 set cursorcolumn
 hi CursorColumn ctermbg=239
 
+"always display the status line
+set laststatus=2
 
 if has("autocmd")
         au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif

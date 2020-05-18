@@ -14,56 +14,50 @@ au BufRead,BUfNew *.isa setf python
 " Dracula color
 Plug 'dracula/vim', { 'as': 'dracula' }
 
+" airline theme
+Plug 'vim-airline/vim-airline'
+let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#enabled = 1
+
 call plug#end()
 colorscheme dracula
 
-
-
-"more characters will be sent to the screen for redrawing
-set ttyfast
-"time waited for key press(es) to complete. It makes for a faster key response
-set ttimeout
-set ttimeoutlen=50
-"make backspace behave properly in insert mode
-set backspace=indent,eol,start
-"display incomplete commands
-set showcmd
-"a better menu in command mode
-set wildmenu
-set wildmode=longest:full,full
-"hide buffers instead of closing them even if they contain unwritten changes
-set hidden
-"disable soft wrap for lines
-set nowrap
-"always display the status line
-set laststatus=2
-"display line numbers on the left side
-set number
-"highlight current line
-set cursorline
-"display text width column
-set colorcolumn=81
-
-
-
+" =============================================================================
+" Edit
+" =============================================================================
 " Turn on/off spell check "
 setlocal spell spelllang=en_us
 nnoremap ss :setl spell! spell?<CR>
-set backspace   =indent,eol,start
 set nospell
 
-"folding code"
-set foldmethod=syntax
-set foldnestmax=10
-set foldlevel=2
-"always set autoindenting on
-set autoindent
+"make backspace behave properly in insert mode
+set backspace=indent,eol,start
+
+" This defines a macro in register A that duplicates a line with increasing
+" value in the number feild
+let @A="Yp\<C-a>"
+" This command executes the macro...use is as Ndi, where N is the number of
+" lines to generate
+nnoremap di @A
+
+" deletes the trailing whitespace
+nnoremap dt :%s/\s\+$//e<CR>
+nnoremap fy gwip
+
+
+
+" =============================================================================
+" Spacing
+" =============================================================================
 set expandtab " always uses spaces instead of tab characters
 au Filetype python setl et ts=4 sw=4
 au Filetype cpp setl et ts=4 sw=4 sts=0 smarttab
 au Filetype c setl et ts=4 sw=4 sts=0 smarttab
 au Filetype markdown setl et ts=4 sw=4 sts=0 smarttab
+au Filetype tex setl et ts=4 sw=4 sts=0 smarttab
+au Filetype tex setl spell
 au Filetype sh setl et ts=4 sw=4 sts=0 smarttab
+
 
 " =============================================================================
 " Navigation
@@ -90,8 +84,50 @@ set incsearch
 "highlight search
 set hlsearch
 "searches are case insensitive unless they contain at least one capital letter
-set ignorecase
+" set ignorecase
 set smartcase
+
+
+
+" =============================================================================
+" Viewing
+" =============================================================================
+"
+"more characters will be sent to the screen for redrawing
+set ttyfast
+"time waited for key press(es) to complete. It makes for a faster key response
+set ttimeout
+set ttimeoutlen=50
+"display incomplete commands
+set showcmd
+"a better menu in command mode
+set wildmenu
+set wildmode=longest:full,full
+"hide buffers instead of closing them even if they contain unwritten changes
+set hidden
+"disable soft wrap for lines
+set nowrap
+
+"folding code"
+set foldmethod=syntax
+set foldnestmax=10
+set foldlevel=2
+
+"display line numbers on the left side
+set number
+"highlight current line
+set cursorline
+"display text width column
+set colorcolumn=81
+
+hi ColorColumn ctermbg=8
+set cursorline
+hi CursorLine ctermbg=239
+set cursorcolumn
+hi CursorColumn ctermbg=239
+
+"always display the status line
+set laststatus=2
 
 if has("autocmd")
         au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
@@ -99,3 +135,4 @@ endif
 
 filetype plugin indent on    " required
 syntax on
+
