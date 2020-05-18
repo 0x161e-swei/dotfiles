@@ -1,5 +1,22 @@
 
 
+call plug#begin('~/.vim/plugged')
+
+" Syntax Highlighting "
+au BufRead,BufNew *.md setf markdown
+au BufRead,BUfNew *.tex setf tex
+au BufRead,BUfNew *.org setf tex
+au BufRead,BUfNew *.isa setf python
+
+" =============================================================================
+" Dracula color
+Plug 'dracula/vim', { 'as': 'dracula' }
+
+call plug#end()
+colorscheme dracula
+
+
+
 "more characters will be sent to the screen for redrawing
 set ttyfast
 "time waited for key press(es) to complete. It makes for a faster key response
@@ -25,6 +42,18 @@ set cursorline
 "display text width column
 set colorcolumn=81
 
+
+
+" Turn on/off spell check "
+setlocal spell spelllang=en_us
+nnoremap ss :setl spell! spell?<CR>
+set backspace   =indent,eol,start
+set nospell
+
+"folding code"
+set foldmethod=syntax
+set foldnestmax=10
+set foldlevel=2
 "always set autoindenting on
 set autoindent
 set expandtab " always uses spaces instead of tab characters
@@ -33,6 +62,26 @@ au Filetype cpp setl et ts=4 sw=4 sts=0 smarttab
 au Filetype c setl et ts=4 sw=4 sts=0 smarttab
 au Filetype markdown setl et ts=4 sw=4 sts=0 smarttab
 au Filetype sh setl et ts=4 sw=4 sts=0 smarttab
+
+" =============================================================================
+" Navigation
+" =============================================================================
+" Keep the cursor near the center "
+set scrolloff=15
+" Quick swapping between windows "
+nnoremap ww <C-w>w
+nnoremap wj <C-w>j
+nnoremap wk <C-w>k
+nnoremap wh <C-w>h
+nnoremap wl <C-w>l
+
+" Preview definition
+nnoremap gd <C-w>}
+" Close Preview window
+nnoremap cp <C-w>z
+" Go to definition
+nnoremap gt <C-w>v<C-]>
+inoremap jj <Esc>
 
 "incremental search
 set incsearch
