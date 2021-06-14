@@ -1,12 +1,103 @@
+filetype off                  " required
+set nu
+
+set encoding=utf-8
+call plug#begin('~/.vim/plugged')
+
+" Syntax Highlighting "
+au BufRead,BufNew *.md setf markdown
+au BufRead,BUfNew *.tex setf tex
+au BufRead,BUfNew *.org setf tex
+au BufRead,BUfNew *.isa setf python
+
+" =============================================================================
+" Dracula color
+Plug 'dracula/vim', { 'as': 'dracula' }
+
+" airline theme
+Plug 'vim-airline/vim-airline'
+let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#enabled = 1
+
+call plug#end()
+colorscheme dracula
+
+" =============================================================================
+" Edit
+" =============================================================================
+" Turn on/off spell check "
+setlocal spell spelllang=en_us
+nnoremap ss :setl spell! spell?<CR>
+set nospell
+
+"make backspace behave properly in insert mode
+set backspace=indent,eol,start
+
+" This defines a macro in register A that duplicates a line with increasing
+" value in the number feild
+let @A="Yp\<C-a>"
+" This command executes the macro...use is as Ndi, where N is the number of
+" lines to generate
+nnoremap di @A
+
+" deletes the trailing whitespace
+nnoremap dt :%s/\s\+$//e<CR>
+nnoremap fy gwip
 
 
+
+" =============================================================================
+" Spacing
+" =============================================================================
+set expandtab " always uses spaces instead of tab characters
+au Filetype python setl et ts=4 sw=4
+au Filetype cpp setl et ts=4 sw=4 sts=0 smarttab
+au Filetype c setl et ts=4 sw=4 sts=0 smarttab
+au Filetype markdown setl et ts=4 sw=4 sts=0 smarttab
+au Filetype tex setl et ts=4 sw=4 sts=0 smarttab
+au Filetype tex setl spell
+au Filetype sh setl et ts=4 sw=4 sts=0 smarttab
+
+
+" =============================================================================
+" Navigation
+" =============================================================================
+" Keep the cursor near the center "
+set scrolloff=15
+" Quick swapping between windows "
+nnoremap ww <C-w>w
+nnoremap wj <C-w>j
+nnoremap wk <C-w>k
+nnoremap wh <C-w>h
+nnoremap wl <C-w>l
+
+" Preview definition
+nnoremap gd <C-w>}
+" Close Preview window
+nnoremap cp <C-w>z
+" Go to definition
+nnoremap gt <C-w>v<C-]>
+inoremap jj <Esc>
+
+"incremental search
+set incsearch
+"highlight search
+set hlsearch
+"searches are case insensitive unless they contain at least one capital letter
+" set ignorecase
+set smartcase
+
+
+
+" =============================================================================
+" Viewing
+" =============================================================================
+"
 "more characters will be sent to the screen for redrawing
 set ttyfast
 "time waited for key press(es) to complete. It makes for a faster key response
 set ttimeout
 set ttimeoutlen=50
-"make backspace behave properly in insert mode
-set backspace=indent,eol,start
 "display incomplete commands
 set showcmd
 "a better menu in command mode
@@ -16,8 +107,12 @@ set wildmode=longest:full,full
 set hidden
 "disable soft wrap for lines
 set nowrap
-"always display the status line
-set laststatus=2
+
+"folding code"
+set foldmethod=syntax
+set foldnestmax=10
+set foldlevel=2
+
 "display line numbers on the left side
 set number
 "highlight current line
@@ -25,19 +120,19 @@ set cursorline
 "display text width column
 set colorcolumn=81
 
-"always set autoindenting on
-set autoindent
-set expandtab " always uses spaces instead of tab characters
-au Filetype python setl et ts=4 sw=4
-au Filetype cpp setl et ts=4 sw=4 sts=0 smarttab
-au Filetype c setl et ts=4 sw=4 sts=0 smarttab
-au Filetype markdown setl et ts=4 sw=4 sts=0 smarttab
-au Filetype sh setl et ts=4 sw=4 sts=0 smarttab
+hi ColorColumn ctermbg=8
+set cursorline
+hi CursorLine ctermbg=239
+set cursorcolumn
+hi CursorColumn ctermbg=239
 
-"incremental search
-set incsearch
-"highlight search
-set hlsearch
-"searches are case insensitive unless they contain at least one capital letter
-set ignorecase
-set smartcase
+"always display the status line
+set laststatus=2
+
+if has("autocmd")
+        au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+endif
+
+filetype plugin indent on    " required
+syntax on
+
