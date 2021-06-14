@@ -33,6 +33,13 @@ git clone https://github.com/oh-my-fish/oh-my-fish  ${HOME}/.local/oh-my-fish
 fish ${HOME}/.local/oh-my-fish/bin/install --offline  \
     --path=${HOME}/.local/share/omf --config=${HOME}/.config/omf
 fish -c 'omf install bobthefish'
+fish -c "curl -sL https://git.io/fisher | source && \
+    fisher install jorgebucaran/fisher && \
+    fisher install acomagu/fish-async-prompt"
+
+mkdir -p $HOME/.config/fish
+cp fish.config $HOME/.config/fish/
+cp -r dir_colors $HOME/.dir_colors
 
 # for vim
 cp vimrc  ${HOME}/.vimrc
@@ -42,7 +49,7 @@ curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
 # Manually install the newest version of taglist
 mkdir -p ${HOME}/.vim/colors
 cd ${HOME}/.vim/colors
-wget https://raw.githubusercontent.com/tomasr/molokai/master/colors/molokai.vim 
+wget https://raw.githubusercontent.com/tomasr/molokai/master/colors/molokai.vim
 vim +PlugInstall +qall
 
 # Making sure flygrep opens on split
