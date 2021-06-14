@@ -4,7 +4,7 @@ set -q XDG_DATA_HOME
   or set -gx OMF_PATH "$HOME/.local/share/omf"
 
 # Load Oh My Fish configuration.
-source $OMF_PATH/init.fish
+# source $OMF_PATH/init.fish
 
 source $HOME/.config/fish/conf.d/__async_prompt.fish
 
@@ -26,5 +26,5 @@ alias vi 'vim'
 
 # set JAVA_HOME /usr/lib/jvm/jdk-12.0.2/bin/
 
-eval (dircolors $HOME/.dir_colors/dircolors | head -n 1 | sed 's/^LS_COLORS=/set -x LS_COLORS /;s/;$//')
+eval (dircolors $HOME/.custom_dir_colors/dircolors | head -n 1 | sed 's/^LS_COLORS=/set -x LS_COLORS /;s/;$//')
 

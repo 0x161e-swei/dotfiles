@@ -39,7 +39,7 @@ fish -c "curl -sL https://git.io/fisher | source && \
 
 mkdir -p $HOME/.config/fish
 cp fish.config $HOME/.config/fish/
-cp -r dir_colors $HOME/.dir_colors
+cp -r dir_colors $HOME/.custom_dir_colors
 
 # for vim
 cp vimrc  ${HOME}/.vimrc
