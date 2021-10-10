@@ -60,27 +60,8 @@ sed -i "s/exe 'e '/exe 'vsp '/" \
 # cd ${HOME}/.vim/plugged/YouCompleteMe
 # python3 install.py --clang-completer
 
-# git diff
-brew install diff-so-fancy
-git config --global core.pager "diff-so-fancy | less --tabs=4 -RFX"
+# auto install cargo without configs
+curl https://sh.rustup.rs -sSf | sh -s -- -y
+$HOME/.cargo/bin/cargo install git-delta
+cp gitconfig $HOME/.gitconfig
 
-git config --global color.ui true
-
-git config --global color.diff-highlight.oldNormal      "red bold"
-git config --global color.diff-highlight.oldHighlight   "red bold 52"
-git config --global color.diff-highlight.newNormal      "green bold"
-git config --global color.diff-highlight.newHighlight   "green bold 22"
-
-git config --global color.diff.meta                     "yellow"
-git config --global color.diff.frag                     "magenta bold"
-git config --global color.diff.commit                   "yellow bold"
-git config --global color.diff.old                      "red bold"
-git config --global color.diff.new                      "green bold"
-git config --global color.diff.whitespace               "red reverse"
-
-# git name
-git config --global user.name                           "Shijia Wei"
-git config --global user.email                          "swei@`uname -n`"
-
-# git editor
-git config --global core.editor                         "vim"
