@@ -29,11 +29,11 @@ let g:airline_theme='dracula'
 let g:airline#extensions#tabline#enabled = 1
 " =============================================================================
 " LeaderF
-Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
-let g:Lf_RootMarkers = ['.root', '.svn', '.git', '.hg', '.project']
-let g:Lf_WindowHeight = 0.20
-let g:Lf_StlColorscheme = 'powerline'
-nnoremap fa  :LeaderfFunctionAll<CR>
+" Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
+" let g:Lf_RootMarkers = ['.root', '.svn', '.git', '.hg', '.project']
+" let g:Lf_WindowHeight = 0.20
+" let g:Lf_StlColorscheme = 'powerline'
+" nnoremap fa  :LeaderfFunctionAll<CR>
 " =============================================================================
 
 Plug 'sheerun/vim-polyglot'
@@ -120,14 +120,40 @@ nnoremap qf :call asyncrun#quickfix_toggle(10)<CR>
 
 " =============================================================================
 " file search plugin
-Plug 'junegunn/fzf'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-let g:fzf_action = {
-  \ 'Enter': 'vsplit',
-  \ 'ctrl-t': 'tab split',
-  \ 'ctrl-x': 'split',
-  \ 'ctrl-v': 'vsplit' }
-set rtp+=~/.linuxbrew/opt/fzf
+" let g:fzf_preview_window = ['up:40%', 'ctrl-/']
+let g:fzf_colors =
+\ { 'fg':         ['fg', 'Normal'],
+  \ 'bg':         ['bg', 'Normal'],
+  \ 'preview-bg': ['bg', 'NormalFloat'],
+  \ 'hl':         ['fg', 'Comment'],
+  \ 'fg+':        ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+  \ 'bg+':        ['bg', 'CursorLine', 'CursorColumn'],
+  \ 'hl+':        ['fg', 'Statement'],
+  \ 'info':       ['fg', 'PreProc'],
+  \ 'border':     ['fg', 'Ignore'],
+  \ 'prompt':     ['fg', 'Conditional'],
+  \ 'pointer':    ['fg', 'Exception'],
+  \ 'marker':     ['fg', 'Keyword'],
+  \ 'spinner':    ['fg', 'Label'],
+  \ 'header':     ['fg', 'Comment'] }
+
+command! -bang -nargs=* PRg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always --smart-case -- '.shellescape(<q-args>), 1,
+  \   fzf#vim#with_preview({'dir': systemlist('git rev-parse --show-toplevel')[0]}), <bang>0)
+" Grep for current word
+nnoremap gr :PRg <C-r><C-w><CR>
+nnoremap cgr :Rg <C-r><C-w><CR>
+" Grep for current selection
+vnoremap gr vgvy :PRg <c-r>"<CR>
+vnoremap cgr vgvy :Rg <c-r>"<CR>
+
+imap <c-c><c-w> <plug>(fzf-complete-word)
+imap <c-c><c-p> <plug>(fzf-complete-path)
+
+
 function! s:_get_root()
         let l:root = asyncrun#get_root('%')
         return l:root
@@ -144,30 +170,24 @@ Plug '0x161e-swei/FlyGrep.vim'
 command! -nargs=1 FGrep call FlyGrep#open({
                         \ 'dir': s:_get_root(),
                         \ 'input': <f-args>})
-
-" Grep for current word
-nnoremap gr :FGrep <C-r><C-w><CR>
-
-" Grep for current selection
-vnoremap gr vgvy :FGrep <c-r>"<CR>
-" let g:FlyGrep_search_tools = ['ag', 'rg', 'grep', 'pt', 'ack']
+let g:FlyGrep_search_tools = ['rg', 'ag', 'grep', 'pt', 'ack']
 
 " Add highlighting on functions and classes for C++
 function! EnhanceCppSyntax()
-	syn match    cCustomParen    "?=(" contains=cParen,cCppParen
-	syn match    cCustomFunc     "\w\+\s*(\@=" contains=cCustomParen
-	syn match    cCustomScope    "::"
-	syn match    cCustomClass    "\w\+\s*::" contains=cCustomScope
-	"hi def link cCustomFunc Function
-	hi def link cCustomClass Function
+  syn match    cCustomParen    "?=(" contains=cParen,cCppParen
+  syn match    cCustomFunc     "\w\+\s*(\@=" contains=cCustomParen
+  syn match    cCustomScope    "::"
+  syn match    cCustomClass    "\w\+\s*::" contains=cCustomScope
+  "hi def link cCustomFunc Function
+  hi def link cCustomClass Function
 endfunction
 au Syntax cpp call EnhanceCppSyntax()
 
 " Highlight local variables
 let g:TagHighlightSettings={'IncludeLocals':'True'}
 function CustomTagHighlight()
-	hi LocalVariable guifg=#ff00ff
-	hi GlobalVariable guifg=#ff00ff
+  hi LocalVariable guifg=#ff00ff
+  hi GlobalVariable guifg=#ff00ff
 endfunction
 au Syntax c,cpp call CustomTagHighlight()
 
@@ -179,33 +199,6 @@ call plug#end()             " required
 " #############################################################################
 " =============================================================================
 colorscheme dracula
-if (&term =~ '^xterm' && &t_Co == 256)
-  set t_ut= | set ttyscroll=1
-endif
-
-if &term =~ '^xterm'
-  " Cursor in terminal
-  " https://vim.fandom.com/wiki/Configuring_the_cursor
-  " 1 -> blinking block
-  " 2 solid block
-  " 3 -> blinking underscore
-  " 4 solid underscore
-  " Recent versions of xterm (282 or above) also support
-  " 5 -> blinking vertical bar
-  " 6 -> solid vertical bar
-
-  " normal mode
-  let &t_EI .= "\<Esc>[1 q"
-  " insert mode
-  let &t_SI .= "\<Esc>[5 q"
-
-  augroup windows_term
-    autocmd!
-    autocmd VimEnter * silent !echo -ne "\e[1 q"
-    autocmd VimLeave * silent !echo -ne "\e[5 q"
-  augroup END
-endif
-
 
 
 " =============================================================================
@@ -263,6 +256,9 @@ nnoremap gd <C-w>}
 nnoremap cp <C-w>z
 " Go to definition
 nnoremap gt <C-w>v<C-]>
+" Go to file at location
+" nnoremap gf already exists
+" Exist insert mode
 inoremap jj <Esc>
 
 "incremental search
@@ -278,8 +274,35 @@ set smartcase
 " =============================================================================
 " Viewing
 " =============================================================================
-"
-"more characters will be sent to the screen for redrawing
+if (&term =~ '^xterm' && &t_Co == 256)
+  set t_ut= | set ttyscroll=1
+endif
+
+if &term =~ '^xterm'
+  " Cursor in terminal
+  " Link: https://vim.fandom.com/wiki/Configuring_the_cursor
+  " 0 -> blinking block not working in wsl
+  " 1 -> blinking block
+  " 2 -> solid block
+  " 3 -> blinking underscore
+  " 4 -> solid underscore
+  " Recent versions of xterm (282 or above) also support
+  " 5 -> blinking vertical bar
+  " 6 -> solid vertical bar
+
+  " normal mode
+  let &t_EI .= "\<Esc>[1 q"
+  " insert mode
+  let &t_SI .= "\<Esc>[5 q"
+
+  augroup windows_term
+    autocmd!
+    autocmd VimEnter * silent !echo -ne "\e[1 q"
+    autocmd VimLeave * silent !echo -ne "\e[5 q"
+  augroup END
+endif
+
+" more characters will be sent to the screen for redrawing
 set ttyfast
 "time waited for key press(es) to complete. It makes for a faster key response
 set ttimeout
@@ -318,6 +341,7 @@ set laststatus=2
 if has("autocmd")
         au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 endif
+autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
 
 filetype plugin indent on    " required
 syntax on
